@@ -3,7 +3,8 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
-  test:
+  
+  run-unit-tests:
     working_directory: /go/src/github.com/bobclarke/gotodo
     docker:
       - image: circleci/golang:1.14.6
@@ -11,12 +12,11 @@ jobs:
       - checkout
       - run: go get -v -t -d ./...
       - run: go test ./...
-  build:
+  
+  build-tag-and-push:
     working_directory: /build
     docker:
       - image: docker:17.05.0-ce-git
-
-      
     steps:
       - checkout
       - setup_remote_docker:
