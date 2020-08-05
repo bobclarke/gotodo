@@ -15,8 +15,12 @@ jobs:
     working_directory: /build
     docker:
       - image: docker:17.05.0-ce-git
+
+      
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - run: docker build -t bobclarke/gotodo:0.0.1 .
       - run: docker login -u bobclarke -p $DOCKER_PASSWORD
       - run: docker push bobclarke/gotodo:0.0.1
