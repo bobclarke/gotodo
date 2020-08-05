@@ -3,29 +3,25 @@
 # Check https://circleci.com/docs/2.0/language-go/ for more details
 version: 2
 jobs:
-  
   test:
     working_directory: /go/src/github.com/bobclarke/gotodo
     docker:
       - image: circleci/golang:1.14.6
-
     steps:
       - checkout
       - run: go get -v -t -d ./...
       - run: go test ./...
-
   build:
     working_directory: /build
     docker:
       - image: docker:17.05.0-ce-git
-
     steps:
       - checkout
       - run: docker build -t bobclarke/gotodo:0.0.1 .
       - run: docker login -u bobclarke -p $DOCKER_PASSWORD
       - run: docker push bobclarke/gotodo:0.0.1
 
-workflow:
+workflows:
   my_workflow:
     jobs:
       - test
