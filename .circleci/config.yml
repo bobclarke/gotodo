@@ -23,14 +23,12 @@ jobs:
 
 workflows:
   version: 2
-  my_workflow:
+  test-and-build:
     jobs:
       - test
       - build:
-        requires:
-          - build
-
-
+          requires:
+            - test
 
   
 
