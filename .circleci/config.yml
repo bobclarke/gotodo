@@ -29,9 +29,11 @@ workflow:
   my_workflow:
     jobs:
       - test
-      - build
+      - build:
+        requires:
+          - build
 
-      
+
 
   
 
