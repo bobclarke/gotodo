@@ -4,7 +4,7 @@
 version: 2
 jobs:
   
-  run-unit-tests:
+  unit-tests:
     working_directory: /go/src/github.com/bobclarke/gotodo
     docker:
       - image: circleci/golang:1.14.6
@@ -13,7 +13,7 @@ jobs:
       - run: go get -v -t -d ./...
       - run: go test ./...
   
-  build-tag-and-push:
+  build:
     working_directory: /build
     docker:
       - image: docker:17.05.0-ce-git
@@ -29,10 +29,10 @@ workflows:
   version: 2
   test-and-build:
     jobs:
-      - test
+      - unit-tests
       - build:
           requires:
-            - test
+            - unit-tests
 
   
 
